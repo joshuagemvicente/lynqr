@@ -82,6 +82,7 @@ model Link {
   title       String
   link        String
   description String?
+  isActive    Boolean  @default(true)
   clicks      Click[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
