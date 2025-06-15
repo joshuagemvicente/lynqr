@@ -8,8 +8,13 @@ layout("./routes/auth/_auth.layout.tsx", [
 ]),
 layout("./routes/hub/_hub.layout.tsx", [
   ...prefix("hub", [
-
     index("./routes/hub/_index.tsx")
+  ]),
+
+  layout("./routes/profile/_profile.layout.tsx", [
+    ...prefix("profile", [
+      index("./routes/profile/_index.tsx")
+    ]),
   ]),
 
   ...prefix("api", [

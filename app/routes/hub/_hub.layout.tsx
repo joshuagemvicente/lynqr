@@ -17,6 +17,11 @@ export async function loader({ request }: Route.LoaderArgs) {
   const user = await prisma.user.findUnique({
     where: {
       id: session.user.id
+    },
+    select: {
+      id: true,
+      hasUsername: true,
+      linkUsername: true
     }
   })
 
@@ -24,8 +29,14 @@ export async function loader({ request }: Route.LoaderArgs) {
     throw redirect("/login")
   }
 
+  if (user.linkUsername && user.hasUsername) {
+    const url = new URL(request.url)
+    if (url.pathname === "/hub") {
+      return redirect("/profile")
+    }
+  }
 
-  return data({ session })
+  return data({ session, user })
 }
 
 

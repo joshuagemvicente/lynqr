@@ -7,6 +7,7 @@ import { Input } from "~/components/ui/input";
 import { getFormProps, getInputProps, useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { loginSchema } from "~/dtos/auth/auth.dto";
+import { authClient } from "~/lib/auth.client";
 
 export function LoginForm() {
 
@@ -56,7 +57,12 @@ export function LoginForm() {
         </div>
 
         {/* Google Login */}
-        <Button variant="outline" className="w-full" type="button">
+        <Button onClick={async () => {
+          await authClient.signIn.social({
+            provider: "google"
+            // No fixed callback URL - will use server-side redirect logic
+          })
+        }} variant="outline" className="w-full" type="submit">
           <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
             <path
               d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"

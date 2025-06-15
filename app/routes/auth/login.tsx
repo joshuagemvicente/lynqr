@@ -7,30 +7,38 @@ import { dataWithError, redirectWithSuccess } from "remix-toast";
 import { auth } from "~/lib/auth.server";
 import { redirect } from "react-router";
 
-
-
 export async function loader({ request }: Route.LoaderArgs) {
   const session = await auth.api.getSession({
     headers: request.headers
-  })
+  });
 
   if (session) {
-    throw redirect("/hub")
+    const user = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: {
+        linkUsername: true
+      }
+    });
+
+    if (user) {
+      if (user.linkUsername) {
+        return redirect("/profile");
+      } else {
+        return redirect("/hub");
+      }
+    }
   }
 
+  return null;
 }
-
 
 export default function Login() {
   return <LoginForm />
 }
 
-
 export async function action({ request }: Route.ActionArgs) {
   const formData = await request.formData();
-  const intent = formData.get("intent")
   const submission = parseWithZod(formData, { schema: loginSchema });
-
 
   if (submission.status !== "success") {
     return submission.reply();
@@ -42,7 +50,11 @@ export async function action({ request }: Route.ActionArgs) {
     where: {
       email
     },
-    include: {
+    select: {
+      id: true,
+      name: true,
+      hasUsername: true,
+      linkUsername: true,
       accounts: {
         select: {
           password: true
@@ -79,7 +91,6 @@ export async function action({ request }: Route.ActionArgs) {
     }
   })
 
-
-  return redirectWithSuccess("/hub", { message: `Welcome ${String(user.name)}.` }, { headers })
-
+  const redirectPath = user.hasUsername && user.linkUsername ? "/profile" : "/hub";
+  return redirectWithSuccess(redirectPath, { message: `Welcome ${String(user.name)}.` }, { headers })
 }

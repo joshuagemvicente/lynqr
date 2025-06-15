@@ -18,7 +18,7 @@ model User {
   name          String
   email         String
   hasUsername   Boolean   @default(false)
-  linkUsername  String?
+  linkUsername  String?   @unique
   emailVerified Boolean
   image         String?
   createdAt     DateTime
