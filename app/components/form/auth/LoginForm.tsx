@@ -56,11 +56,9 @@ export function LoginForm() {
           </div>
         </div>
 
-        {/* Google Login */}
         <Button onClick={async () => {
           await authClient.signIn.social({
             provider: "google"
-            // No fixed callback URL - will use server-side redirect logic
           })
         }} variant="outline" className="w-full" type="submit">
           <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
