@@ -93,7 +93,7 @@ export default function ProfileLayout() {
     .slice(0, 2);
   return (
     < SidebarProvider >
-      <div className="flex h-screen bg-gray-50">
+      <div className="flex h-screen bg-gray-50 w-full">
         <Sidebar className="border-r border-gray-200">
           <SidebarHeader className="p-4">
             <Link to="/dashboard" className="flex items-center space-x-3">
