@@ -218,4 +218,5 @@ export default function ProfileLayout() {
       </div>
     </SidebarProvider >
   );
-} 
+}
+

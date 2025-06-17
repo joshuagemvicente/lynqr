@@ -1,3 +1,6 @@
+import { prisma } from "~/lib/prisma"
+import type { Route } from "./+types/_index";
+import { Link as NavLink, Outlet, useLoaderData } from "react-router"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "~/components/ui/dropdown-menu"
 import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription } from "~/components/ui/dialog"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "~/components/ui/select"
@@ -12,6 +15,7 @@ import { useState } from "react"
 import { Switch } from "@radix-ui/react-switch"
 import { Textarea } from "~/components/ui/textarea"
 import { StatsCard } from "~/components/profile/StatsCard"
+import { auth } from "~/lib/auth.server";
 
 const iconOptions = [
   { value: "instagram", label: "Instagram", icon: Instagram, color: "text-pink-600" },
@@ -41,7 +45,37 @@ interface Link {
   createdAt: string
 }
 
+
+export async function loader({ request }: Route.LoaderArgs) {
+  const session = await auth.api.getSession({
+    headers: request.headers,
+  })
+  const userId = session?.user.id
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userId
+    },
+    select: {
+      linkUsername: true,
+      Link: {
+        select: {
+          clicks: true
+        }
+      }
+    }
+  })
+
+  console.log("user: ", user)
+
+  return {
+    user
+  }
+}
+
 export default function DashboardPage() {
+  const { user } = useLoaderData<typeof loader>()
+  console.log(user)
   const [links, setLinks] = useState<Link[]>([
     {
       id: "1",
@@ -133,7 +167,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Stats Cards */}
-      <StatsCard />
+      <StatsCard linkUsername={user?.linkUsername} />
 
 
       {/* Actions Bar */}
@@ -156,127 +190,15 @@ export default function DashboardPage() {
             Filter
           </Button>
 
-          <Dialog open={isAddingLink} onOpenChange={setIsAddingLink}>
-            <DialogTrigger asChild>
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 h-12"
-              >
-                <Plus className="w-5 h-5 mr-2" />
-                Add New Link
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-2xl">
-              <DialogHeader>
-                <DialogTitle className="text-2xl">Add New Link</DialogTitle>
-                <DialogDescription className="text-base">Create a new link to add to your profile</DialogDescription>
-              </DialogHeader>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-6">
-                  <div>
-                    <Label htmlFor="title" className="text-base font-medium">
-                      Link Title *
-                    </Label>
-                    <Input
-                      id="title"
-                      placeholder="Enter link title"
-                      value={newLink.title}
-                      onChange={(e) => setNewLink({ ...newLink, title: e.target.value })}
-                      className="mt-2 h-12"
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="url" className="text-base font-medium">
-                      Destination URL *
-                    </Label>
-                    <Input
-                      id="url"
-                      placeholder="https://example.com"
-                      value={newLink.url}
-                      onChange={(e) => setNewLink({ ...newLink, url: e.target.value })}
-                      className="mt-2 h-12"
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="description" className="text-base font-medium">
-                      Description (Optional)
-                    </Label>
-                    <Textarea
-                      id="description"
-                      placeholder="Brief description of this link"
-                      value={newLink.description}
-                      onChange={(e) => setNewLink({ ...newLink, description: e.target.value })}
-                      className="mt-2 min-h-[80px]"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-6">
-                  <div>
-                    <Label htmlFor="icon" className="text-base font-medium">
-                      Choose Icon
-                    </Label>
-                    <Select value={newLink.icon} onValueChange={(value) => setNewLink({ ...newLink, icon: value })}>
-                      <SelectTrigger className="mt-2 h-12">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent className="max-h-60">
-                        {iconOptions.map((option) => {
-                          const IconComponent = option.icon
-                          return (
-                            <SelectItem key={option.value} value={option.value}>
-                              <div className="flex items-center space-x-3">
-                                <IconComponent className={`w-5 h-5 ${option.color}`} />
-                                <span>{option.label}</span>
-                              </div>
-                            </SelectItem>
-                          )
-                        })}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-                    <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-                    <p className="text-sm text-gray-600 mb-2">Or upload custom icon</p>
-                    <Button variant="outline" size="sm">
-                      Choose File
-                    </Button>
-                  </div>
-
-                  {/* Preview */}
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <p className="text-sm font-medium text-gray-700 mb-3">Preview</p>
-                    <div className="bg-white rounded-lg p-4 border">
-                      <div className="flex items-center space-x-3">
-                        {(() => {
-                          const { icon: IconComponent, color } = getIconComponent(newLink.icon)
-                          return <IconComponent className={`w-6 h-6 ${color}`} />
-                        })()}
-                        <div className="flex-1 min-w-0">
-                          <p className="font-medium text-gray-900 truncate">{newLink.title || "Link Title"}</p>
-                          {newLink.description && (
-                            <p className="text-sm text-gray-500 truncate">{newLink.description}</p>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex justify-end space-x-3 pt-6 border-t">
-                <Button variant="outline" onClick={() => setIsAddingLink(false)} size="lg">
-                  Cancel
-                </Button>
-                <Button size="lg">
-                  Add Link
-                </Button>
-              </div>
-            </DialogContent>
-          </Dialog>
+          <NavLink to="add">
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 h-12"
+            >
+              <Plus className="w-5 h-5 mr-2" />
+              Add New Link
+            </Button>
+          </NavLink>
         </div>
       </div>
 
@@ -397,6 +319,9 @@ export default function DashboardPage() {
           </div>
         )}
       </div>
+      <section>
+        <Outlet />
+      </section>
     </div>
   )
 }

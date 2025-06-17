@@ -2,7 +2,12 @@ import { Card, CardContent } from "~/components/ui/card"
 import { Button } from "~/components/ui/button"
 import { Copy, ExternalLink, BarChart3, TrendingUp, } from "lucide-react"
 
-export function StatsCard() {
+interface StatsCardProps {
+  linkUsername?: string;
+  totalLinks?: number;
+}
+
+export function StatsCard({ linkUsername, totalLinks }: StatsCardProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
       <Card className="bg-gradient-to-r from-blue-50 to-cyan-50 border-blue-200">
@@ -10,7 +15,7 @@ export function StatsCard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-blue-700 font-medium text-sm">Profile URL</p>
-              <p className="text-blue-900 font-bold text-lg">lynqr.me/johndoe</p>
+              <p className="text-blue-900 font-bold text-sm">{`lynqr.me/${linkUsername}`}</p>
             </div>
             <Button variant="ghost" size="sm" className="text-blue-700 hover:bg-blue-100">
               <Copy className="w-4 h-4" />

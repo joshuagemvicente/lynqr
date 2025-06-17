@@ -12,8 +12,8 @@ layout("./routes/hub/_hub.layout.tsx", [
   ]),
 
   layout("./routes/profile/_profile.layout.tsx", [
-    ...prefix("profile", [
-      index("./routes/profile/_index.tsx")
+    route("profile", "./routes/profile/_index.tsx", [
+      route("add", "./routes/profile/add.tsx"),
     ]),
   ]),
 
