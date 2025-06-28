@@ -13,10 +13,10 @@ import { useForm, getFormProps, getInputProps, } from "@conform-to/react";
 
 
 export const linkUsernameSchema = z.object({
- linkUsername:z.string().min(3).max(20).trim()
+  linkUsername: z.string().min(3).max(20).trim()
 })
 
-export async function loader({request}: Route.LoaderArgs) {
+export async function loader({ request }: Route.LoaderArgs) {
   const session = await auth.api.getSession({
     headers: request.headers
   });
@@ -30,8 +30,8 @@ export async function loader({request}: Route.LoaderArgs) {
       id: session.user.id
     },
     select: {
-      email:true,
-      linkUsername:true
+      email: true,
+      linkUsername: true
     }
   })
 
@@ -39,21 +39,21 @@ export async function loader({request}: Route.LoaderArgs) {
     return redirect("/login");
   }
 
-  
+
   return {
     user
   }
 }
 
-export async function action({request}: Route.ActionArgs) {
+export async function action({ request }: Route.ActionArgs) {
   const formData = await request.formData()
-  const submission = parseWithZod(formData, {schema: linkUsernameSchema})
+  const submission = parseWithZod(formData, { schema: linkUsernameSchema })
 
   if (submission.status !== "success") {
     return submission.reply()
   }
 
-  const { linkUsername} = submission.value
+  const { linkUsername } = submission.value
 
   const session = await auth.api.getSession({
     headers: request.headers
@@ -88,9 +88,9 @@ export async function action({request}: Route.ActionArgs) {
 
 export default function Hub() {
   const { user } = useLoaderData<typeof loader>();
-  const [form,fields] = useForm({
-    onValidate({formData}) {
-      return parseWithZod(formData, {schema: linkUsernameSchema})
+  const [form, fields] = useForm({
+    onValidate({ formData }) {
+      return parseWithZod(formData, { schema: linkUsernameSchema })
     },
     shouldValidate: "onBlur",
     shouldRevalidate: "onInput"
@@ -130,13 +130,12 @@ export default function Hub() {
               <div className="flex items-center bg-white border-2 border-slate-200 group-focus-within:border-blue-400 rounded-2xl px-5 py-4 shadow-sm transition-all duration-200">
                 <span className="text-slate-500 font-medium">lynqr.me/</span>
                 <Input
-                  {...getInputProps(fields.linkUsername, {type: "text"})}
+                  {...getInputProps(fields.linkUsername, { type: "text" })}
                   type="text"
                   placeholder="yourname"
                   className="border-0 bg-transparent focus:ring-0 focus:outline-none p-0 ml-1 font-medium text-slate-800 placeholder:text-slate-400"
                 />
               </div>
-              <div className="absolute -bottom-1 left-5 right-5 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 opacity-0 group-focus-within:opacity-100 transition-opacity duration-200"></div>
             </div>
 
             <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-4 space-y-3">

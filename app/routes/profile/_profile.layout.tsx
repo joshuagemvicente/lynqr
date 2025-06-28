@@ -51,16 +51,6 @@ const navigationItems = [
     icon: Home,
   },
   {
-    title: "Analytics",
-    to: "/profile/analytics",
-    icon: BarChart3,
-  },
-  {
-    title: "Audience",
-    to: "/profile/audience",
-    icon: Users,
-  },
-  {
     title: "Appearance",
     to: "/profile/appearance",
     icon: Palette,
@@ -70,12 +60,12 @@ const navigationItems = [
 const toolsItems = [
   {
     title: "Link Shortener",
-    to: "/profile/link-shortener",
+    to: "/link-shortener",
     icon: LinkIcon,
   },
   {
     title: "QR Code Generator",
-    to: "/profile/qr-generator",
+    to: "/qr-generator",
     icon: QrCode,
   },
 ]
@@ -131,10 +121,12 @@ export default function ProfileLayout() {
                           <Settings className="w-4 h-4 mr-2" />
                           Account Settings
                         </DropdownMenuItem>
+                        <Link to="/p/share-feedback">
                         <DropdownMenuItem>
                           <MessageSquare className="w-4 h-4 mr-2" />
                           Share Feedback
                         </DropdownMenuItem>
+                        </Link>
                         <DropdownMenuItem>
                           <HelpCircle className="w-4 h-4 mr-2" />
                           Help

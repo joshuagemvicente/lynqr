@@ -82,6 +82,7 @@ model Link {
   title       String
   link        String
   description String?
+  icon        String?
   isActive    Boolean  @default(true)
   clicks      Click[]
   createdAt   DateTime @default(now())
@@ -91,8 +92,7 @@ model Link {
 }
 
 model Click {
-  id String @id @default(cuid())
-
+  id     String  @id @default(cuid())
   Link   Link?   @relation(fields: [linkId], references: [id])
   linkId String?
 }

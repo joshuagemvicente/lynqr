@@ -9,6 +9,7 @@ import {
   useLoaderData,
   type LoaderFunctionArgs,
 } from "react-router";
+import { NotFound } from "./components/errors/404";
 
 import type { Route } from "./+types/root";
 import { useEffect } from "react";
@@ -74,11 +75,18 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let stack: string | undefined;
 
   if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
-    details =
-      error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
+    switch (error.status) {
+      case 404:
+        return <NotFound />
+      default:
+        message = `Error ${error.status}`;
+        details = error.statusText || details;
+    }
+    // message = error.status === 404 ? "404" : "Error";
+    // details =
+    //   error.status === 404
+    //     ? "The requested page could not be found."
+    //     : error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
     stack = error.stack;

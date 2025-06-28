@@ -10,14 +10,21 @@ layout("./routes/hub/_hub.layout.tsx", [
   ...prefix("hub", [
     index("./routes/hub/_index.tsx")
   ]),
+]),
 
   layout("./routes/profile/_profile.layout.tsx", [
-    route("profile", "./routes/profile/_index.tsx", [
+    route("profile", "./routes/profile/index.tsx", [
       route("add", "./routes/profile/add.tsx"),
+      route(":linkId", "./routes/profile/$id.tsx"),
     ]),
+    route("p/share-feedback", "./routes/profile/share-feedback.tsx"),
+    route("qr-generator", "./routes/qr-code/index.tsx"),
   ]),
+
+  route(":linkUsername", "./routes/user-profile.tsx"),
+
 
   ...prefix("api", [
     route("auth/*", "./routes/api/better.tsx")
   ])
-])] satisfies RouteConfig;
+] satisfies RouteConfig;
