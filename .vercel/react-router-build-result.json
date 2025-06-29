@@ -1,0 +1,261 @@
+{
+  "buildManifest": {
+    "serverBundles": {
+      "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0": {
+        "id": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+        "file": "build/server/nodejs_eyJydW50aW1lIjoibm9kZWpzIn0/index.js",
+        "config": {
+          "runtime": "nodejs"
+        }
+      }
+    },
+    "routeIdToServerBundleId": {
+      "routes/home": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/auth/login": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/auth/signup": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/hub/_index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/profile/index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/profile/add": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/profile/$id": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/profile/share-feedback": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/qr-code/index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/user-profile": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api/better": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0"
+    },
+    "routes": {
+      "root": {
+        "path": "",
+        "id": "root",
+        "file": "app/root.tsx",
+        "config": {}
+      },
+      "routes/home": {
+        "id": "routes/home",
+        "parentId": "root",
+        "file": "app/routes/home.tsx",
+        "index": true,
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/auth/_auth.layout": {
+        "id": "routes/auth/_auth.layout",
+        "parentId": "root",
+        "file": "app/routes/auth/_auth.layout.tsx",
+        "config": {}
+      },
+      "routes/auth/login": {
+        "id": "routes/auth/login",
+        "parentId": "routes/auth/_auth.layout",
+        "file": "app/routes/auth/login.tsx",
+        "path": "login",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/auth/signup": {
+        "id": "routes/auth/signup",
+        "parentId": "routes/auth/_auth.layout",
+        "file": "app/routes/auth/signup.tsx",
+        "path": "signup",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/hub/_hub.layout": {
+        "id": "routes/hub/_hub.layout",
+        "parentId": "root",
+        "file": "app/routes/hub/_hub.layout.tsx",
+        "config": {}
+      },
+      "routes/hub/_index": {
+        "id": "routes/hub/_index",
+        "parentId": "routes/hub/_hub.layout",
+        "file": "app/routes/hub/_index.tsx",
+        "path": "hub",
+        "index": true,
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/profile/_profile.layout": {
+        "id": "routes/profile/_profile.layout",
+        "parentId": "root",
+        "file": "app/routes/profile/_profile.layout.tsx",
+        "config": {}
+      },
+      "routes/profile/index": {
+        "id": "routes/profile/index",
+        "parentId": "routes/profile/_profile.layout",
+        "file": "app/routes/profile/index.tsx",
+        "path": "profile",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/profile/add": {
+        "id": "routes/profile/add",
+        "parentId": "routes/profile/index",
+        "file": "app/routes/profile/add.tsx",
+        "path": "add",
+        "config": {}
+      },
+      "routes/profile/$id": {
+        "id": "routes/profile/$id",
+        "parentId": "routes/profile/index",
+        "file": "app/routes/profile/$id.tsx",
+        "path": ":linkId",
+        "config": {}
+      },
+      "routes/profile/share-feedback": {
+        "id": "routes/profile/share-feedback",
+        "parentId": "routes/profile/_profile.layout",
+        "file": "app/routes/profile/share-feedback.tsx",
+        "path": "p/share-feedback",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/qr-code/index": {
+        "id": "routes/qr-code/index",
+        "parentId": "routes/profile/_profile.layout",
+        "file": "app/routes/qr-code/index.tsx",
+        "path": "qr-generator",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/user-profile": {
+        "id": "routes/user-profile",
+        "parentId": "root",
+        "file": "app/routes/user-profile.tsx",
+        "path": ":linkUsername",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/api/better": {
+        "id": "routes/api/better",
+        "parentId": "root",
+        "file": "app/routes/api/better.tsx",
+        "path": "api/auth/*",
+        "config": {
+          "runtime": "nodejs"
+        }
+      }
+    }
+  },
+  "reactRouterConfig": {
+    "appDirectory": "/home/gem/qrlinked/app",
+    "basename": "/",
+    "buildDirectory": "/home/gem/qrlinked/build",
+    "future": {
+      "unstable_middleware": false,
+      "unstable_optimizeDeps": false,
+      "unstable_splitRouteModules": false,
+      "unstable_subResourceIntegrity": false,
+      "unstable_viteEnvironmentApi": false
+    },
+    "routes": {
+      "root": {
+        "path": "",
+        "id": "root",
+        "file": "root.tsx"
+      },
+      "routes/home": {
+        "id": "routes/home",
+        "parentId": "root",
+        "file": "routes/home.tsx",
+        "index": true
+      },
+      "routes/auth/_auth.layout": {
+        "id": "routes/auth/_auth.layout",
+        "parentId": "root",
+        "file": "./routes/auth/_auth.layout.tsx"
+      },
+      "routes/auth/login": {
+        "id": "routes/auth/login",
+        "parentId": "routes/auth/_auth.layout",
+        "file": "./routes/auth/login.tsx",
+        "path": "login"
+      },
+      "routes/auth/signup": {
+        "id": "routes/auth/signup",
+        "parentId": "routes/auth/_auth.layout",
+        "file": "./routes/auth/signup.tsx",
+        "path": "signup"
+      },
+      "routes/hub/_hub.layout": {
+        "id": "routes/hub/_hub.layout",
+        "parentId": "root",
+        "file": "./routes/hub/_hub.layout.tsx"
+      },
+      "routes/hub/_index": {
+        "id": "routes/hub/_index",
+        "parentId": "routes/hub/_hub.layout",
+        "file": "./routes/hub/_index.tsx",
+        "path": "hub",
+        "index": true
+      },
+      "routes/profile/_profile.layout": {
+        "id": "routes/profile/_profile.layout",
+        "parentId": "root",
+        "file": "./routes/profile/_profile.layout.tsx"
+      },
+      "routes/profile/index": {
+        "id": "routes/profile/index",
+        "parentId": "routes/profile/_profile.layout",
+        "file": "./routes/profile/index.tsx",
+        "path": "profile"
+      },
+      "routes/profile/add": {
+        "id": "routes/profile/add",
+        "parentId": "routes/profile/index",
+        "file": "./routes/profile/add.tsx",
+        "path": "add"
+      },
+      "routes/profile/$id": {
+        "id": "routes/profile/$id",
+        "parentId": "routes/profile/index",
+        "file": "./routes/profile/$id.tsx",
+        "path": ":linkId"
+      },
+      "routes/profile/share-feedback": {
+        "id": "routes/profile/share-feedback",
+        "parentId": "routes/profile/_profile.layout",
+        "file": "./routes/profile/share-feedback.tsx",
+        "path": "p/share-feedback"
+      },
+      "routes/qr-code/index": {
+        "id": "routes/qr-code/index",
+        "parentId": "routes/profile/_profile.layout",
+        "file": "./routes/qr-code/index.tsx",
+        "path": "qr-generator"
+      },
+      "routes/user-profile": {
+        "id": "routes/user-profile",
+        "parentId": "root",
+        "file": "./routes/user-profile.tsx",
+        "path": ":linkUsername"
+      },
+      "routes/api/better": {
+        "id": "routes/api/better",
+        "parentId": "root",
+        "file": "./routes/api/better.tsx",
+        "path": "api/auth/*"
+      }
+    },
+    "routeDiscovery": {
+      "mode": "lazy",
+      "manifestPath": "/__manifest"
+    },
+    "serverBuildFile": "index.js",
+    "serverModuleFormat": "esm",
+    "ssr": true
+  },
+  "viteConfig": {
+    "build": {
+      "assetsDir": "assets"
+    }
+  }
+}
