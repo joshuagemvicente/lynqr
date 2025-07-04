@@ -3,11 +3,10 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSepara
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Switch } from "../ui/switch";
-import { ExternalLink, Edit, Trash2, DotIcon as DragHandleDots2, BarChart3, MoreVertical, Copy } from "lucide-react"
+import { ExternalLink, Edit, Trash2, DotIcon as DragHandleDots2, BarChart3, MoreVertical, Copy, Eye } from "lucide-react"
 import { Form, Link } from "react-router";
-import { useState } from "react";
-import { toast } from "sonner";
-import { dataWithError, dataWithSuccess } from "remix-toast";
+import { dataWithSuccess } from "remix-toast";
+import { Skeleton } from "../ui/skeleton";
 
 interface Link {
   id: string;
@@ -16,7 +15,7 @@ interface Link {
   url?: string;
   description?: string | null;
   icon?: string | null;
-  clicks: number | any[];
+  clicks: { id: string }[];
   isActive: boolean;
   createdAt: string | Date;
 }
@@ -24,12 +23,58 @@ interface Link {
 interface LinkCardProps {
   links: Link[];
   getIconComponent: (iconName: string) => { icon: React.ElementType; color: string };
+  loading?: boolean;
 }
 
-export function LinkCard({ links, getIconComponent }: LinkCardProps) {
+export function LinkCard({ links, getIconComponent, loading }: LinkCardProps) {
   const handleCopyLink = async (linkUrl: string) => {
       await navigator.clipboard.writeText(linkUrl);
       dataWithSuccess(null, "Link copied to clipboard!");
+  }
+
+  if (loading) {
+    return (
+      <div className="grid gap-4">
+        {[...Array(3)].map((_, i) => (
+          <Card key={i} className="hover:shadow-lg transition-all duration-200 border-l-4 border-l-gray-300 opacity-75">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <Skeleton className="w-14 h-14 rounded-2xl" />
+                  <div className="flex-1 min-w-0 space-y-2">
+                    <Skeleton className="h-6 w-3/4" />
+                    <Skeleton className="h-4 w-1/2" />
+                  </div>
+                </div>
+                <Skeleton className="h-10 w-10 rounded-full" />
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    );
+  }
+
+  if (links.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <Eye className="w-8 h-8 text-gray-400" />
+        </div>
+        <h3 className="text-lg font-medium text-gray-900 mb-2">
+          No links yet
+        </h3>
+        <p className="text-gray-500 mb-6">
+          Get started by adding your first link
+        </p>
+        <NavLink to="add">
+          <Button className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600">
+            <Plus className="w-4 h-4 mr-2" />
+            Add Your First Link
+          </Button>
+        </NavLink>
+      </div>
+    );
   }
 
   return (
@@ -126,9 +171,11 @@ export function LinkCard({ links, getIconComponent }: LinkCardProps) {
                           Edit Link
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <BarChart3 className="w-4 h-4 mr-2" />
-                        View Analytics
+                      <DropdownMenuItem asChild>
+                        <Link to={`/profile/analytics/${link.id}`} className="flex items-center cursor-pointer">
+                          <BarChart3 className="w-4 h-4 mr-2" />
+                          View Analytics
+                        </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem onClick={() => handleCopyLink(url)}>
                         <Copy className="w-4 h-4 mr-2" />

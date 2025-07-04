@@ -1,9 +1,8 @@
 import { Sparkles, ArrowLeft, Home } from "lucide-react";
-import { useNavigate, useLocation } from "react-router";
+import { useNavigate } from "react-router";
 
 export function NotFound() {
   const navigate = useNavigate()
-  const location = useLocation()
 
   const handleGoBack = () => {
     window.history.back()
@@ -30,13 +29,13 @@ export function NotFound() {
           <h1 className="text-4xl md:text-6xl font-thin text-gray-900 mb-6 tracking-tight">
             This feature
             <span className="block font-light bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              isn't ready
+              isn&apos;t ready
             </span>
             <span className="block">yet</span>
           </h1>
 
           <p className="text-xl md:text-2xl text-gray-500 mb-8 font-light leading-relaxed max-w-lg mx-auto">
-            We're putting the finishing touches on something extraordinary.
+            We&apos;re putting the finishing touches on something extraordinary.
           </p>
 
           <div className="inline-flex items-center gap-3 bg-white/80 backdrop-blur-sm border border-gray-200/50 rounded-full px-6 py-3 shadow-sm mb-12">
@@ -63,7 +62,7 @@ export function NotFound() {
           </div>
 
           <p className="text-sm text-gray-400 mt-8 font-light">
-            Want to be notified when it's ready?{" "}
+            Want to be notified when it&apos;s ready?{" "}
             <button className="text-blue-500 hover:text-blue-600 transition-colors underline underline-offset-2">
               Let us know
             </button>

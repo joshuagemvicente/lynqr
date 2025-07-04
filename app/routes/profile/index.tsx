@@ -1,6 +1,6 @@
 import { prisma } from "~/lib/prisma"
 import type { Route } from "./+types/index";
-import { Link as NavLink, Outlet, useLoaderData, useNavigate } from "react-router"
+import { Link as NavLink, Outlet, useLoaderData, useNavigation } from "react-router"
 import { Eye, Share, Search, Filter, Plus } from "lucide-react"
 import { Button } from "~/components/ui/button"
 import { Input } from "~/components/ui/input"
@@ -49,6 +49,8 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 export default function Profile() {
   const { data, linkList } = useLoaderData<typeof loader>()
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "loading";
 
   const [searchQuery, setSearchQuery] = useState("")
 
@@ -115,7 +117,7 @@ export default function Profile() {
 
       <div className="space-y-6">
 
-        {filteredLinks.length > 0 ? (<LinkCard links={filteredLinks} getIconComponent={getIconComponent} />) : (
+        {filteredLinks.length > 0 ? (<LinkCard links={filteredLinks} getIconComponent={getIconComponent} loading={isLoading} />) : (
           <div className="text-center py-12">
             <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <Eye className="w-8 h-8 text-gray-400" />

@@ -1,4 +1,4 @@
-import { Form, useLoaderData, useNavigate } from "react-router";
+import { Form, useLoaderData } from "react-router";
 import { DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "../ui/dialog";
 import { getInputProps, getFormProps, useForm, getTextareaProps } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { Upload } from "lucide-react";
 import { getIconComponent, iconOptions } from "~/utils/icons";
 import type { loader } from "~/routes/profile/$id";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { UpdateLinkSchema } from "~/dtos/link/updateLink.dto";
 
 export function EditLinkForm() {
@@ -32,27 +32,14 @@ export function EditLinkForm() {
     shouldRevalidate: "onInput",
   });
 
-  const [preview, setPreview] = useState({
-    title: link?.title,
-    description: link?.description || "",
-    icon: link?.icon || "website"
-  });
-
-  useEffect(() => {
-    const formElement = document.getElementById(form.id) as HTMLFormElement;
-    if (formElement) {
-      const formData = new FormData(formElement);
-      setPreview({
-        title: formData.get("title") as string || link?.title,
-        description: formData.get("description") as string || link?.description || "",
-        icon: selectedIcon
-      });
-    }
-  }, [form.id, link, selectedIcon]);
+  const preview = {
+    title: fields.title.value || link?.title,
+    description: fields.description.value || link?.description || "",
+    icon: selectedIcon
+  };
 
   const handleIconChange = (value: string) => {
     setSelectedIcon(value);
-    setPreview(prev => ({ ...prev, icon: value }));
   };
 
   return (
@@ -122,7 +109,6 @@ export function EditLinkForm() {
               <Select
                 value={selectedIcon}
                 onValueChange={handleIconChange}
-                
               >
                 <SelectTrigger className="mt-2 h-12 w-full flex">
                   <SelectValue className="w-full">

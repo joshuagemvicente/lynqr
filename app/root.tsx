@@ -53,6 +53,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
+        <meta property="og:title" content="Lynqr - Your Digital Connection Hub" />
+        <meta property="og:description" content="Create your personalized link-in-bio and QR codes for seamless sharing." />
+        <meta property="og:image" content="https://lynqr.me/og-image.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Lynqr - Your Digital Connection Hub" />
+        <meta name="twitter:description" content="Create your personalized link-in-bio and QR codes for seamless sharing." />
+        <meta name="twitter:image" content="https://lynqr.me/og-image.jpg" />
         <Links />
       </head>
       <body>

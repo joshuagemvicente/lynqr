@@ -8,7 +8,7 @@ import { prisma } from "~/lib/prisma"
 import { auth } from "~/lib/auth.server"
 import { dataWithError, redirectWithSuccess } from "remix-toast"
 
-export default () => {
+const ProfileAdd = () => {
   const navigate = useNavigate()
 
   return (
@@ -24,6 +24,8 @@ export default () => {
   )
 
 }
+
+export default ProfileAdd;
 
 
 export async function action({ request }: Route.ActionArgs) {

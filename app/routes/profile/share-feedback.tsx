@@ -1,6 +1,4 @@
-import { useLoaderData } from "react-router";
-
-export default () => {
+const ShareFeedback = () => {
 
     return (
         <div>
@@ -8,3 +6,5 @@ export default () => {
         </div>
     )
 }
+
+export default ShareFeedback;

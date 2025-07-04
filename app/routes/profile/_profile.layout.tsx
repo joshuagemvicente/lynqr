@@ -3,7 +3,7 @@ import { prisma } from "~/lib/prisma";
 import type { LoaderFunctionArgs } from "react-router";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from "~/components/ui/dropdown-menu";
 import { Separator } from "~/components/ui/separator";
-import { ChevronDown, Settings, MessageSquare, HelpCircle, LogOut, BarChart3, Home, LinkIcon, Palette, QrCode, Users } from "lucide-react";
+import { ChevronDown, Settings, MessageSquare, HelpCircle, LogOut, Home, LinkIcon, Palette, QrCode } from "lucide-react";
 import { Sidebar, SidebarProvider, SidebarHeader, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarGroupLabel, SidebarFooter, SidebarInset } from "~/components/ui/sidebar";
 import { Avatar, AvatarImage, AvatarFallback } from "~/components/ui/avatar"
 import { data } from "react-router";

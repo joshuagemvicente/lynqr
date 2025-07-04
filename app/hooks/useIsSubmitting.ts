@@ -1,7 +1,7 @@
 import { useNavigation } from "react-router"
 
 type FormMethods = "POST" | "PUT" | "PATCH";
-export const useIsSubmitting = async (formMethod?: FormMethods) => {
+export const useIsSubmitting = (formMethod?: FormMethods) => {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 

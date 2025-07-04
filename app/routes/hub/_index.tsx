@@ -1,6 +1,6 @@
 import type { Route } from "./+types/_index";
 import { Button } from "~/components/ui/button";
-import { Form, Link, useLoaderData } from "react-router";
+import { Form, useLoaderData } from "react-router";
 import { Card } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { auth } from "~/lib/auth.server";
@@ -121,7 +121,7 @@ export default function Hub() {
                 Choose your unique lynqr username for{" "}
                 <span className="font-semibold text-slate-800">{user.email}</span>
               </p>
-              <p className="text-sm">Don't worry, you can update it anytime later.</p>
+              <p className="text-sm">Don&apos;t worry, you can update it anytime later.</p>
             </div>
           </div>
 

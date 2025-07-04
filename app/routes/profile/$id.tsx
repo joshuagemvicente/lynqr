@@ -8,7 +8,7 @@ import { parseWithZod } from "@conform-to/zod"
 import { redirectWithSuccess, dataWithError } from "remix-toast"
 import { UpdateLinkSchema } from "~/dtos/link/updateLink.dto"
 
-export default () => {
+const ProfileId = () => {
   const navigate = useNavigate()
   return (
     <Dialog
@@ -22,6 +22,8 @@ export default () => {
     </Dialog>
   )
 }
+
+export default ProfileId;
 
 export async function loader({ request, params }: Route.LoaderArgs) {
   const session = await auth.api.getSession({
