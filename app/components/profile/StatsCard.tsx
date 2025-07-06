@@ -11,7 +11,7 @@ interface StatsCardProps {
 
 export function StatsCard({ linkUsername, totalLinks, totalActiveLinks, totalClicks }: StatsCardProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
       <Card className="bg-gradient-to-r from-blue-50 to-cyan-50 border-blue-200">
         <CardContent className="p-6">
           <div className="flex items-center justify-between">

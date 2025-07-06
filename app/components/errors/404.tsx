@@ -70,7 +70,7 @@ export function NotFound() {
         </div>
 
         <div className="mt-20 animate-fade-in-up-delayed">
-          <p className="text-sm text-gray-400 font-light">Designed in California</p>
+          <p className="text-sm text-gray-400 font-light">♡ by Gem.</p>
         </div>
       </div>
 

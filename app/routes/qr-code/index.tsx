@@ -43,7 +43,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function QRCodeGenerator() {
   const { user } = useLoaderData<typeof loader>();
-  const [customUrl, setCustomUrl] = useState(`http://localhost:3000/${user.linkUsername}`);
+  const [customUrl, setCustomUrl] = useState(`http://localhost:5173/${user.linkUsername}`);
   const [qrSize, setQrSize] = useState(200);
   const [qrColor, setQrColor] = useState("#000000");
   const [qrBgColor, setQrBgColor] = useState("#ffffff");

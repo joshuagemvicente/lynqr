@@ -60,12 +60,12 @@ const navigationItems = [
 const toolsItems = [
   {
     title: "Link Shortener",
-    to: "/link-shortener",
+    to: "/tools/link-shortener",
     icon: LinkIcon,
   },
   {
     title: "QR Code Generator",
-    to: "/qr-generator",
+    to: "/tools/qr-generator",
     icon: QrCode,
   },
 ]
@@ -122,10 +122,10 @@ export default function ProfileLayout() {
                           Account Settings
                         </DropdownMenuItem>
                         <Link to="/p/share-feedback">
-                        <DropdownMenuItem>
-                          <MessageSquare className="w-4 h-4 mr-2" />
-                          Share Feedback
-                        </DropdownMenuItem>
+                          <DropdownMenuItem>
+                            <MessageSquare className="w-4 h-4 mr-2" />
+                            Share Feedback
+                          </DropdownMenuItem>
                         </Link>
                         <DropdownMenuItem>
                           <HelpCircle className="w-4 h-4 mr-2" />

@@ -10,6 +10,8 @@ import { LinkCard } from "~/components/profile/LinkCard"
 import { auth } from "~/lib/auth.server";
 import { deleteLinkById, getLinksByUserId, updateLinkStatus } from "~/utils/link.server";
 import { getIconComponent } from "~/utils/icons";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "~/components/ui/dialog";
+import { FacebookShareButton } from "react-share"
 
 export async function loader({ request }: Route.LoaderArgs) {
   const session = await auth.api.getSession({
@@ -51,7 +53,6 @@ export default function Profile() {
   const { data, linkList } = useLoaderData<typeof loader>()
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
-
   const [searchQuery, setSearchQuery] = useState("")
 
   const filteredLinks = searchQuery
@@ -73,10 +74,26 @@ export default function Profile() {
             <Eye className="w-5 h-5 mr-2" />
             Preview Profile
           </Button>
-          <Button variant="outline" size="lg" className="h-12">
-            <Share className="w-5 h-5 mr-2" />
-            Share Profile
-          </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" size="lg" className="h-12">
+                <Share className="w-5 h-5 mr-2" />
+                Share Profile
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Share</DialogTitle>
+                <DialogDescription>Share your Lynqr account on one of these platforms.</DialogDescription>
+              </DialogHeader>
+              <div>
+                <div>
+
+
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
 
